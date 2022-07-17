@@ -8,8 +8,6 @@
 
 static const char *TAG = "boobs";
 
-static uint8_t s_led_state = 0;
-
 static led_strip_t *pStrip_a;
 
 
@@ -38,12 +36,19 @@ static void configure_led(void)
     pStrip_a->clear(pStrip_a, 50);
 }
 
+void wait_ms(uint32_t timems) {
+    /* wait for timems miliseconds to pass */
+    vTaskDelay(timems / portTICK_PERIOD_MS);
+}
 
 void app_main(void)
 {
     /* Configure the peripheral according to the LED type */
     configure_led();
-    led_on(255, 26, 140);
-    vTaskDelay(CONFIG_BLINK_PERIOD / portTICK_PERIOD_MS);
-    led_off();
+    for(uint8_t i=0; i<10; i++) {
+        led_on(255, 26, 140);
+        wait_ms(500);
+        led_off();
+        wait_ms(500);
+    }
 }

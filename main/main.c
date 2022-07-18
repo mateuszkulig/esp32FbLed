@@ -28,10 +28,30 @@ static void led_off(void) {
 
 
 
+void startup_sequence(void) {
+    /* display rainbow on startup to test led */
+    led_on(148, 0, 211);
+    wait_ms(500);
+    led_on(75, 0, 130);
+    wait_ms(500);
+    led_on(0, 0, 255);
+    wait_ms(500);
+    led_on(0, 255, 0);
+    wait_ms(500);
+    led_on(255, 255, 0);
+    wait_ms(500);
+    led_on(255, 127, 0);
+    wait_ms(500);
+    led_on(255, 0, 0);
+    wait_ms(500);
+    led_off();
+}
+
 void app_main(void)
 {
     /* Configure the peripheral according to the LED type */
     configure_led();
+    startup_sequence();
     for(uint8_t i=0; i<10; i++) {
         led_on(255, 26, 140);
         wait_ms(500);

@@ -27,22 +27,6 @@ static void led_off(void) {
 }
 
 
-<<<<<<< HEAD
-=======
-static void configure_led(void)
-{
-    ESP_LOGI(TAG, "Program switching built-in led's color from messenger");
-    /* LED strip initialization with the GPIO and pixels number*/
-    pStrip_a = led_strip_init(CONFIG_BLINK_LED_RMT_CHANNEL, CONFIG_BLINK_GPIO, 1);
-    /* Set all LED off to clear all pixels */
-    pStrip_a->clear(pStrip_a, 50);
-}
-
-void wait_ms(uint32_t timems) {
-    /* wait for timems miliseconds to pass */
-    vTaskDelay(timems / portTICK_PERIOD_MS);
-}
->>>>>>> 8073be44a1c33228846e3b0abca18e4c64dbb248
 
 void app_main(void)
 {

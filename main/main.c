@@ -6,55 +6,52 @@
 #include "led_strip.h"
 #include "sdkconfig.h"
 
-static const char *TAG = "example";
-
-/* Use project configuration menu (idf.py menuconfig) to choose the GPIO to blink,
-   or you can edit the following line and set a number here.
-*/
-#define BLINK_GPIO CONFIG_BLINK_GPIO
-
-static uint8_t s_led_state = 0;
+static const char *TAG = "boobs";
 
 static led_strip_t *pStrip_a;
 
 
-static void blink_led(void)
+static void led_on(uint8_t r, uint8_t g, uint8_t b)
 {
-    /* If the addressable LED is enabled */
-    if (s_led_state) {
-        /* Set the LED pixel using RGB from 0 (0%) to 255 (100%) for each color */
-        pStrip_a->set_pixel(pStrip_a, 0, 51, 204, 51);
-        /* Refresh the strip to send data */
-        pStrip_a->refresh(pStrip_a, 100);
-    } else {
-        /* Set all LED off to clear all pixels */
-        pStrip_a->clear(pStrip_a, 50);
-    }
+    ESP_LOGI(TAG, "turning the led on, colored (%d, %d, %d)rgb!", r, g, b);
+    /* Set the LED pixel using RGB from 0 (0%) to 255 (100%) for each color */
+    pStrip_a->set_pixel(pStrip_a, 0, r, g, b);
+    /* Refresh the strip to send data */
+    pStrip_a->refresh(pStrip_a, 100);
 }
 
-
-static void configure_led(void)
-{
-    ESP_LOGI(TAG, "Example configured to blink addressable LED!");
-    /* LED strip initialization with the GPIO and pixels number*/
-    pStrip_a = led_strip_init(CONFIG_BLINK_LED_RMT_CHANNEL, BLINK_GPIO, 1);
+static void led_off(void) {
+    ESP_LOGI(TAG, "turning the led off");
     /* Set all LED off to clear all pixels */
     pStrip_a->clear(pStrip_a, 50);
 }
 
 
+<<<<<<< HEAD
+=======
+static void configure_led(void)
+{
+    ESP_LOGI(TAG, "Program switching built-in led's color from messenger");
+    /* LED strip initialization with the GPIO and pixels number*/
+    pStrip_a = led_strip_init(CONFIG_BLINK_LED_RMT_CHANNEL, CONFIG_BLINK_GPIO, 1);
+    /* Set all LED off to clear all pixels */
+    pStrip_a->clear(pStrip_a, 50);
+}
+
+void wait_ms(uint32_t timems) {
+    /* wait for timems miliseconds to pass */
+    vTaskDelay(timems / portTICK_PERIOD_MS);
+}
+>>>>>>> 8073be44a1c33228846e3b0abca18e4c64dbb248
 
 void app_main(void)
 {
     /* Configure the peripheral according to the LED type */
     configure_led();
-    uint16_t i = 0;
-    uint16_t times = 5;
-    for(i=0; i<(times*2)+1; i++) {
-        ESP_LOGI(TAG, "Turning the LED %s!", s_led_state == true ? "ON" : "OFF");
-        blink_led();
-        /* Toggle the LED state */
-        s_led_state = !s_led_state;
-        vTaskDelay(CONFIG_BLINK_PERIOD / portTICK_PERIOD_MS);
+    for(uint8_t i=0; i<10; i++) {
+        led_on(255, 26, 140);
+        wait_ms(500);
+        led_off();
+        wait_ms(500);
     }
 }

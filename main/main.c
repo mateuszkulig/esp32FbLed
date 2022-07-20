@@ -10,6 +10,19 @@ static const char *TAG = "boobs";
 
 static led_strip_t *pStrip_a;
 
+static void configure_led(void)
+{
+    ESP_LOGI(TAG, "Program switching built-in led's color from messenger");
+    /* LED strip initialization with the GPIO and pixels number*/
+    pStrip_a = led_strip_init(CONFIG_BLINK_LED_RMT_CHANNEL, CONFIG_BLINK_GPIO, 1);
+    /* Set all LED off to clear all pixels */
+    pStrip_a->clear(pStrip_a, 50);
+}
+void wait_ms(uint32_t timems) 
+{
+    /* wait for timems miliseconds to pass */
+    vTaskDelay(timems / portTICK_PERIOD_MS);
+}
 
 static void led_on(uint8_t r, uint8_t g, uint8_t b)
 {
@@ -20,31 +33,41 @@ static void led_on(uint8_t r, uint8_t g, uint8_t b)
     pStrip_a->refresh(pStrip_a, 100);
 }
 
-static void led_off(void) {
+static void led_off(void) 
+{
     ESP_LOGI(TAG, "turning the led off");
     /* Set all LED off to clear all pixels */
     pStrip_a->clear(pStrip_a, 50);
 }
 
-
-
 void startup_sequence(void) {
     /* display rainbow on startup to test led */
-    led_on(148, 0, 211);
-    wait_ms(500);
-    led_on(75, 0, 130);
-    wait_ms(500);
+    led_on(128, 0, 255);
+    wait_ms(250);
     led_on(0, 0, 255);
+    wait_ms(250);
+    led_on(0, 255, 255);
+    wait_ms(250);
+    led_on(0, 255, 0);
+    wait_ms(250);
+    led_on(255, 255, 0);
+    wait_ms(250);
+    led_on(255, 128, 0);
+    wait_ms(250);
+    led_on(255, 0, 0);
+    wait_ms(250);
+    led_off();
+
+    /* two greens to let know that everything is ok */
     wait_ms(500);
     led_on(0, 255, 0);
     wait_ms(500);
-    led_on(255, 255, 0);
+    led_off();
     wait_ms(500);
-    led_on(255, 127, 0);
-    wait_ms(500);
-    led_on(255, 0, 0);
+    led_on(0, 255, 0);
     wait_ms(500);
     led_off();
+    wait_ms(500);
 }
 
 void app_main(void)
@@ -52,7 +75,7 @@ void app_main(void)
     /* Configure the peripheral according to the LED type */
     configure_led();
     startup_sequence();
-    for(uint8_t i=0; i<10; i++) {
+    for(uint8_t i=0; i<5; i++) {
         led_on(255, 26, 140);
         wait_ms(500);
         led_off();

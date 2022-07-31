@@ -12,6 +12,17 @@
     "idf.portWin": "COM7",
     "idf.flashType": "UART",
     "files.associations": {
-        "string": "c"
+        "string": "c",
+        "*.inc": "c",
+        "led_strip.h": "c",
+        "*.tcc": "c",
+        "deque": "c",
+        "list": "c",
+        "unordered_map": "c",
+        "unordered_set": "c",
+        "vector": "c",
+        "system_error": "c",
+        "*.ipp": "c",
+        "sdkconfig.h": "c"
     }
 }

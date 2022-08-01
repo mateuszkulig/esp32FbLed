@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include "led.h"
 
 void led_display_rainbow(void)

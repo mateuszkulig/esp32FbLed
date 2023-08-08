@@ -1,0 +1,9 @@
+# vscode config
+.vscode
+
+# build folder
+build
+
+# esp-idf configs
+sdkconfig
+sdkconfig.old

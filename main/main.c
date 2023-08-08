@@ -1,8 +1,9 @@
-#include <stdio.h>
+#include "stdio.h"
 #include "esp_log.h"
 #include "sdkconfig.h"
 
 #include "led.h"
+#include "network.h"
 
 static const char *TAG = "boobs";
 
@@ -23,6 +24,5 @@ void startupSequence(void) {
  */
 void app_main(void)
 {
-    /* Configure the peripheral according to the LED type */
     startupSequence();
 }

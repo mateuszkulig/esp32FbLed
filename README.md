@@ -14,6 +14,7 @@ With the help of the plugin it should be as easy as running couple of macros fro
 4. Done! The code should be running by now
 
 You can also run last macro using buttons from panel at the bottom of VSCode with the plugin installed.
+
 If after these steps you are still facing build problems you might try to create plugin data in the workspace:
 
 5. `ESP-IDF: Add vscode configuration folder`

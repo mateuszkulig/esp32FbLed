@@ -1,11 +1,10 @@
 #include "stdio.h"
 #include "esp_log.h"
-#include "sdkconfig.h"
 
 #include "led.h"
 #include "network.h"
 
-static const char *TAG = "boobs";
+#define TAG_MAIN "main"
 
 /**
  * @brief   Function always running first after startup
@@ -15,6 +14,7 @@ static const char *TAG = "boobs";
 void startupSequence(void) {
     /* display rainbow on startup to test led */
     configure_led();
+    connectWiFi();
 }
 
 /**
@@ -24,5 +24,9 @@ void startupSequence(void) {
  */
 void app_main(void)
 {
+    while (!connectionStatus(0)) {
+        ESP_LOGI(TAG_MAIN, "Not connected");
+    }
+    ESP_LOGI(TAG_MAIN, "Connected");
     startupSequence();
 }

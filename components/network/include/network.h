@@ -16,16 +16,33 @@
 #define DEFAULT_AUTHMODE        WIFI_AUTH_OPEN
 
 /**
- * @brief           Check the status of the connection or change it
- *                  Needed as a callback in callback in fast_scan instance register
+ * @brief               Check the status of the connection or change it
+ *                      Needed as a callback in callback in fast_scan instance register
  * 
- * @param change    0 or 1, whether a connection should be set to connected
- * @return uint8_t  0 for disconnected/connecting, 1 for connected
+ * @param change        0 or 1, whether a connection should be set to connected
+ * @return uint8_t      0 for disconnected/connecting, 1 for connected
  */
 uint8_t connectionStatus(uint8_t change);
 
 /**
- * @brief           Connect to wifi with default SSID and password
+ * @brief               Callback needed by esp_event_handler_instance_register function
+ *                      I dont know what parameters are, there are not documented anywhere but used in examples.
+ * 
+ * @param arg           ?
+ * @param event_base    ?
+ * @param event_id      ?
+ * @param event_data    ?
+ */
+static void eventHandler(void* arg, esp_event_base_t event_base, int32_t event_id, void* event_data);
+
+/**
+ * @brief               Initialize Wi-Fi as sta and set scan method
+ * 
+ */
+static void fastScan(void);
+
+/**
+ * @brief               Connect to wifi with default SSID and password
  * 
  */
 void connectWiFi(void);

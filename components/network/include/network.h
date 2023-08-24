@@ -6,10 +6,11 @@
 #include "esp_event.h"
 #include "nvs_flash.h"
 #include "esp_http_client.h"
+#include "sdkconfig.h"
 
 #define TAG_NETWORK             "network"
-#define DEFAULT_SSID            ""
-#define DEFAULT_PWD             ""
+#define DEFAULT_SSID            CONFIG_WIFI_SSID
+#define DEFAULT_PWD             CONFIG_WIFI_PASSWORD
 #define DEFAULT_SCAN_METHOD     WIFI_FAST_SCAN
 #define DEFAULT_SORT_METHOD     WIFI_CONNECT_AP_BY_SIGNAL
 #define DEFAULT_RSSI            -127
@@ -27,6 +28,7 @@ uint8_t connectionStatus(uint8_t change);
 /**
  * @brief               Callback needed by esp_event_handler_instance_register function
  *                      I dont know what parameters are, there are not documented anywhere but used in examples.
+ *                      Calls connectionStatus(1) after connecting to wifi.
  * 
  * @param arg           ?
  * @param event_base    ?

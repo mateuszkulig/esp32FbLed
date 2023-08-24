@@ -1,0 +1,15 @@
+menu "WiFi Configuration"
+
+    config WIFI_SSID
+        string "Your WiFi SSID"
+        default "<your ssid here>"
+        help
+            Your WiFi SSID here
+
+    config WIFI_PASSWORD
+        string "Your WiFi password"
+        default "<your password here>"
+        help
+            Your WiFi password here
+        
+endmenu

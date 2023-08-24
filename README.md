@@ -19,3 +19,10 @@ If after these steps you are still facing build problems you might try to create
 
 5. `ESP-IDF: Add vscode configuration folder`
 6. `ESP-IDF: Configure ESP-IDF extension` > Select any setup options
+
+## Configuration
+
+In order to use main WiFi-dependent feature you must set WiFi SSID and password in the network component config file.
+
+You can find it in `./components/network/Kconfig.projbuild`. Replace the `<your ssid here>` and `<your password here>` with actual connect data (do NOT leave `<>`).
+After that you should see `Connected` after few seconds in the ESP-IDF monitor output when run.

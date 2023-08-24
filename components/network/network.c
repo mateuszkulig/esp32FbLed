@@ -63,4 +63,12 @@ void connectWiFi(void)
 
     // Actual connecting to wifi
     fastScan();
+
+    // Wait until connection is estabilished  
+    ESP_LOGI(TAG_MAIN, "Connecting...");
+    while (!connectionStatus(0)) {
+        // Just wait until other tasks finishes without constant output
+        // ESP_LOGI(TAG_MAIN, "Not connected");
+    }
+    ESP_LOGI(TAG_MAIN, "Connected");
 }

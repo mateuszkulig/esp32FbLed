@@ -24,9 +24,6 @@ void startupSequence(void) {
  */
 void app_main(void)
 {
-    while (!connectionStatus(0)) {
-        ESP_LOGI(TAG_MAIN, "Not connected");
-    }
-    ESP_LOGI(TAG_MAIN, "Connected");
     startupSequence();
+    
 }

@@ -3,6 +3,7 @@
 
 #include "led.h"
 #include "network.h"
+#include "https.h"
 
 #define TAG_MAIN "main"
 
@@ -12,8 +13,21 @@
  * 
  */
 void startupSequence(void) {
-    /* display rainbow on startup to test led */
+    // Initialize NVS (possibly needed for fastScan function call)
+    esp_err_t ret = nvs_flash_init();
+    if (ret == ESP_ERR_NVS_NO_FREE_PAGES || ret == ESP_ERR_NVS_NEW_VERSION_FOUND) {
+        ESP_ERROR_CHECK(nvs_flash_erase());
+        ret = nvs_flash_init();
+    }
+    ESP_ERROR_CHECK(ret);
+
+    // Initialize stuff needed for https component
+    ESP_ERROR_CHECK(esp_netif_init());
+
+    // Display rainbow on startup to test led
     configure_led();
+
+    // Connect to the wifi
     connectWiFi();
 }
 
@@ -25,5 +39,6 @@ void startupSequence(void) {
 void app_main(void)
 {
     startupSequence();
+    // sendRequest();
     
 }

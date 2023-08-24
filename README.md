@@ -22,7 +22,19 @@ If after these steps you are still facing build problems you might try to create
 
 ## Configuration
 
+### WiFi
+
 In order to use main WiFi-dependent feature you must set WiFi SSID and password in the network component config file.
 
 You can find it in `./components/network/Kconfig.projbuild`. Replace the `<your ssid here>` and `<your password here>` with actual connect data (do NOT leave `<>`).
 After that you should see `Connected` after few seconds in the ESP-IDF monitor output when run.
+
+### Certificate
+
+HTTPS conneciton requires you to have certificate from [Facebook](https://www.facebook.com/). It is included in this repo, and I will try to update is when it expires, but in case i forgot, you can generate it yourself. The PEM file was extracted from the output of this command:
+
+```
+    openssl s_client -showcerts -connect www.facebook.com:443 </dev/null
+```
+
+The CA root cert is the last cert given in the chain of certs. Just copy and paste its contents into `./components/https/server_root_cert.pem`.

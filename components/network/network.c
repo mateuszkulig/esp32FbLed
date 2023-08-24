@@ -53,22 +53,14 @@ static void fastScan(void)
 
 void connectWiFi(void)
 {
-    // Initialize NVS (possibly needed for fastScan function call)
-    esp_err_t ret = nvs_flash_init();
-    if (ret == ESP_ERR_NVS_NO_FREE_PAGES || ret == ESP_ERR_NVS_NEW_VERSION_FOUND) {
-        ESP_ERROR_CHECK(nvs_flash_erase());
-        ret = nvs_flash_init();
-    }
-    ESP_ERROR_CHECK(ret);
-
     // Actual connecting to wifi
     fastScan();
 
     // Wait until connection is estabilished  
-    ESP_LOGI(TAG_MAIN, "Connecting...");
+    ESP_LOGI(TAG_NETWORK, "Connecting...");
     while (!connectionStatus(0)) {
         // Just wait until other tasks finishes without constant output
-        // ESP_LOGI(TAG_MAIN, "Not connected");
+        // ESP_LOGI(TAG_NETWORK, "Not connected");
     }
-    ESP_LOGI(TAG_MAIN, "Connected");
+    ESP_LOGI(TAG_NETWORK, "Connected");
 }
